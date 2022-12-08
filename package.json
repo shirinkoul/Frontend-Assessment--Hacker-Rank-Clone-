@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "react-native-render-html": "^6.3.4",
+    "react-native-webview": "^11.25.1"
+  }
+}

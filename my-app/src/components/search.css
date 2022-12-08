@@ -1,0 +1,34 @@
+.drop-down.Mui-selected {
+    display: inline,
+}
+
+.span {
+    display: inline,
+}
+
+
+.text {
+    margin-top: 5px;
+    display: inline;
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.searchBox {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+    width: 80%;
+    align-items: center;
+    margin-right: 1rem;
+    display: inline;
+}
+
+.searchTitle {
+    background-color: orange;
+}

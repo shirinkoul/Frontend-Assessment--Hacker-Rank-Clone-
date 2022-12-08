@@ -1,0 +1,22 @@
+.news-div {
+    background-color: rgb(239, 237, 237);
+    margin-top: 3px;
+}
+
+.title {
+    display: inline;
+    margin-top: 20 !important;
+}
+
+.span {
+    display: inline-block;
+    font-size: x-small !important;
+}
+
+.news-details {
+    margin-top: 70;
+}
+
+.news {
+    margin-left: 5px;
+}
