@@ -9,7 +9,7 @@ const initialSearchState = {
   hits: [],
   content: "story",
   popularity: "popularity",
-  API: "http://hn.algolia.com/api/v1/search?",
+  API: "https://hn.algolia.com/api/v1/search?",
   duration: "-1",
 };
 //debouncing

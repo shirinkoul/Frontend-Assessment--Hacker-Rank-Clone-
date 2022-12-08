@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useReducer } from "react";
 import reducer from './reducer';
 
-let API = "http://hn.algolia.com/api/v1/search_by_date?";
+let API = "https://hn.algolia.com/api/v1/search_by_date?";
 
 const initialState = {
     loading: true,

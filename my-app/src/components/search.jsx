@@ -70,10 +70,10 @@ const SearchFilters = () => {
               label={API}
               onChange={(evt) => selectPopularity(evt.target.value)}
             >
-              <MenuItem value={`http://hn.algolia.com/api/v1/search?`}>
+              <MenuItem value={`https://hn.algolia.com/api/v1/search?`}>
                 Popularity
               </MenuItem>
-              <MenuItem value={`http://hn.algolia.com/api/v1/search_by_date?`}>
+              <MenuItem value={`https://hn.algolia.com/api/v1/search_by_date?`}>
                 Date
               </MenuItem>
             </Select>
