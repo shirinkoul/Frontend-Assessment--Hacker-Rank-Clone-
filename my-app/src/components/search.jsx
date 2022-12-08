@@ -5,7 +5,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useSearchGlobalContext } from "./searchContext";
-import SearchAppBar from "./searchAppBar";
 import "./search.css";
 
 const SearchFilters = () => {
@@ -21,7 +20,7 @@ const SearchFilters = () => {
     selectDuration
   } = useSearchGlobalContext();
 
-  const [showComment, setShowComment] = React.useState(content.type!=='story'?true:false);
+  // const [showComment, setShowComment] = React.useState(content.type!=='story'?true:false);
   console.log(hits);
   const commentArray = hits?.filter((data) => {
     return data?._tags?.includes("comment");
@@ -129,7 +128,7 @@ const SearchFilters = () => {
               {/* {showComment && <div>comment </div>} */}
               <span>
                 <h4 className="title"> {title} </h4>
-                <a href={url} target="_blank">
+                <a href={url} target="_blank" rel="noreferrer">
                   (Read More)
                 </a>
               </span>
@@ -153,7 +152,7 @@ const SearchFilters = () => {
               {/* {showComment && <div>comment </div>} */}
               <span>
                 <h4 className="title"> {title} </h4>
-                <a href={url} target="_blank">
+                <a href={url} target="_blank" rel="noreferrer">
                   (Read More)
                 </a>
               </span>
@@ -177,7 +176,7 @@ const SearchFilters = () => {
               {/* {showComment && <div>comment </div>} */}
               <span>
                 <h4 className="title"> {title} </h4>
-                <a href={url} target="_blank">
+                <a href={url} target="_blank" rel="noreferrer">
                   (Read More)
                 </a>
               </span>
@@ -207,7 +206,7 @@ const Search = () => {
     );
   }
  
-  if (hits.length == 0)
+  if (hits.length === 0)
       return <><SearchFilters/><h2>No Results</h2></>;
 
   return <SearchFilters />;

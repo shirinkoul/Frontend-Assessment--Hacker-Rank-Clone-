@@ -3,7 +3,7 @@ import { useGlobalContext } from "./context";
 import './pagination.css';
 
 const Pagination = () => {
-    const { page, nbPages, getPrevPage, getNextPage, curPosts} = useGlobalContext();
+    const { page, nbPages, getPrevPage, getNextPage} = useGlobalContext();
     return (
         <div className="pagination">
             <button className="pagination-button" onClick={() => getPrevPage()}> Previous </button>

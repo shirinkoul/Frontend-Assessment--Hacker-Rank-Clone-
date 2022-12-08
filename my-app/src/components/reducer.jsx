@@ -41,6 +41,8 @@ const reducer = (state, action) => {
                 ...state,
                 query: action.query, 
             };
+        default:
+            return state;
 
     }
 

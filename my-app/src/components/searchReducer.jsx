@@ -65,6 +65,8 @@ const searchReducer = (state, action) => {
                 // popularity: action.payload,
                 duration: action.payload,
             }
+        default :
+            return state;
     }
 
     return state;

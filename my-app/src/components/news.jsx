@@ -32,7 +32,7 @@ const News = () => {
                     <div className='news' key={objectID}>
                         <span >
                             <h4 className='title'> {story_title} </h4>
-                            <a href={story_url} target="_blank">
+                            <a href={story_url} target="_blank" rel="noreferrer">
                             (Read More)
                             </a>
                         </span>

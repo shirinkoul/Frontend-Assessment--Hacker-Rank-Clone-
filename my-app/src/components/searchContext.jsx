@@ -17,7 +17,6 @@ const AppSearchContext = React.createContext();
 
 const AppSearchProvider = ({ children }) => {
    const [state, dispatch] = useReducer(searchReducer, initialSearchState);
-    const [data, setData] = React.useState(initialSearchState);
   const fetchSearchAPIData = async (url) => {
     dispatch({ type: "SET_LOADING" });
 
