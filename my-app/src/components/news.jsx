@@ -1,3 +1,4 @@
+import Pagination from './pagination';
 import React from 'react';
 import {useGlobalContext} from './context';
 import './news.css';
@@ -47,6 +48,7 @@ const News = () => {
                 </li>
             ))
         } */}
+        <Pagination/>
     </div> );
 };
  

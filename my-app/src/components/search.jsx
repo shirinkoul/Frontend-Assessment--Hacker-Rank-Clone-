@@ -30,6 +30,10 @@ const SearchFilters = () => {
     selectPopularity,
     duration,
     selectDuration,
+    page,
+    nbPages,
+    getNextPage,
+    getPrevPage,
   } = useSearchGlobalContext();
 
   // const [dateRange, setDateRange] = useState<DateRange>(DATE_RANGE);
@@ -47,7 +51,7 @@ const SearchFilters = () => {
   return (
     <div>
       <div className="searchTitle">
-        <span className="text">HACKER NEWS SEARCH</span>
+        {/* <span className="text">HACKER NEWS SEARCH</span> */}
         <form onSubmit={(evt) => evt.preventDefault()}>
           <input
             className="searchBox"
@@ -155,7 +159,7 @@ const SearchFilters = () => {
       </div>
       <div className="news-div">
         {storyArray?.map((curPost) => {
-          const { _highlightResult, objectID, url, points, author } = curPost;
+          const { _highlightResult, objectID, url, points, author, nbPages, page } = curPost;
           const title = _highlightResult?.title?.value;
           let point = "point",
             val = points;
@@ -224,6 +228,11 @@ const SearchFilters = () => {
           );
         })}
       </div>
+      <div className="pagination">
+            <button className="pagination-button" onClick={() => getPrevPage()}> Previous </button>
+            <p className="page-num"> {page + 1} of {nbPages} </p>
+            <button className="pagination-button" onClick={() => getNextPage()}> Next </button>
+        </div>
     </div>
   );
 };
@@ -250,5 +259,4 @@ const Search = () => {
 
   return <SearchFilters />;
 };
-//SEARCH API SE QUERY SEARCH RESULTS ARE FINE BUT WITH SEARCHBYDATE API QUERY RESULTS ARE MESSED UP
 export default Search;

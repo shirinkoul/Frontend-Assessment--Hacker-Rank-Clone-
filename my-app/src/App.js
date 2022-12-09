@@ -22,7 +22,6 @@ function App() {
           <Route exact path='/' element={<News/>}/>
           <Route exact path='/search' element={<Search/>}/>
         </Routes>
-        <Pagination />
     </div>
   );
 }

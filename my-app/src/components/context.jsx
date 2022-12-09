@@ -5,7 +5,6 @@ let API = "https://hn.algolia.com/api/v1/search_by_date?";
 
 const initialState = {
     loading: true,
-    // query: "CSS",
     nbPages: 0,
     page: 0,
     hits: [],

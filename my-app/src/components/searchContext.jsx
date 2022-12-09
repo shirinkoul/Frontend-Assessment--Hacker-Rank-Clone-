@@ -12,7 +12,7 @@ const initialSearchState = {
   API: "https://hn.algolia.com/api/v1/search?",
   duration: "-1",
 };
-//debouncing
+
 const AppSearchContext = React.createContext();
 
 const AppSearchProvider = ({ children }) => {
@@ -37,14 +37,6 @@ const AppSearchProvider = ({ children }) => {
   };
 
   const searchText = (searchQuery) => {
-    // console.log("-------------------");
-    // console.log("in searchText");
-    // console.log(searchQuery);
-    // console.log("-------------------");
-    
-    // console.log(initialSearchState.query);
-    // console.log(data);
-
     dispatch({ type: "SEARCH_TEXT", payload: searchQuery });
     // setData({
         // ...data,
@@ -63,13 +55,13 @@ const AppSearchProvider = ({ children }) => {
   };
 
 
-  // const getNextPage = () => {
-  //     dispatch({type: "NEXT_PAGE",});
-  // };
+  const getNextPage = () => {
+      dispatch({type: "NEXT_PAGE",});
+  };
 
-  // const getPrevPage = () => {
-  //     dispatch({type: "PREV_PAGE",});
-  // };
+  const getPrevPage = () => {
+      dispatch({type: "PREV_PAGE",});
+  };
 
   const selectPopularity = (selectedValue) => {
     dispatch({ type: "SELECT_POPULARITY", payload: selectedValue });
@@ -82,17 +74,17 @@ const AppSearchProvider = ({ children }) => {
   
 
   useEffect(() => {
-    // console.log(
-    //   `${state.API}query=${state.query}&tags=${state.content}&page=${state.page}`
-    // );
+    console.log(
+      `${state.API}query=${state.query}&tags=${state.content}&page=${state.page}`
+    );
     console.log(state.content);
     if (state.query == null)
       fetchSearchAPIData(
-        `${state.API}tags=${state.content}&page=${state.page}&hitsPerPage=30&numericFilters=created_at_i>${state.duration}`
+        `${state.API}tags=${state.content}&page=${state.page}&numericFilters=created_at_i>${state.duration}`
       );
     else
       fetchSearchAPIData(
-        `${state.API}query=${state.query}&tags=${state.content}&page=${state.page}&hitsPerPage=30&numericFilters=created_at_i>${state.duration}`
+        `${state.API}query=${state.query}&tags=${state.content}&page=${state.page}&numericFilters=created_at_i>${state.duration}`
       );
   }, [state.page, state.query, state.API, state.duration, state.content]);
 
