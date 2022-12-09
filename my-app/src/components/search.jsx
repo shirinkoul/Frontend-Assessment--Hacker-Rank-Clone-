@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, useState } from "react";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -6,6 +6,18 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useSearchGlobalContext } from "./searchContext";
 import "./search.css";
+import { CalendarPicker, DATE_RANGE, DateRange } from "mui-calendar-picker";
+import { useTheme } from "@mui/material/styles";
+import dayjs from "dayjs";
+import { Typography } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import { LocalizationProvider } from "@mui/x-date-pickers-pro";
+import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
+import { DateRangePicker, SwitchViewIcon} from "@mui/x-date-pickers-pro/DateRangePicker";
+import { CalendarPickerSkeleton } from '@mui/x-date-pickers/CalendarPickerSkeleton';
+import { PickersDay } from '@mui/x-date-pickers/PickersDay';
+import Badge from '@mui/material/Badge';
+import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 
 const SearchFilters = () => {
   const {
@@ -17,32 +29,37 @@ const SearchFilters = () => {
     API,
     selectPopularity,
     duration,
-    selectDuration
+    selectDuration,
   } = useSearchGlobalContext();
 
+  // const [dateRange, setDateRange] = useState<DateRange>(DATE_RANGE);
+  // const theme = useTheme();
+  const [value, setValue] = React.useState([null, null]);
+  const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
   // const [showComment, setShowComment] = React.useState(content.type!=='story'?true:false);
   console.log(hits);
   const commentArray = hits?.filter((data) => {
     return data?._tags?.includes("comment");
-  })
+  });
   const storyArray = hits?.filter((data) => {
     return data?._tags?.includes("story");
-  })
+  });
   return (
     <div>
-        <div className="searchTitle">
-          <span className="text">HACKER NEWS SEARCH</span>
-          <form onSubmit={(evt) => evt.preventDefault()}>
-              <input className="searchBox"
-                type="text"
-                value={query}
-                placeholder="Search"
-                onChange={(evt) => searchText(evt.target.value)}
-              />
-          </form>
-        </div>
+      <div className="searchTitle">
+        <span className="text">HACKER NEWS SEARCH</span>
+        <form onSubmit={(evt) => evt.preventDefault()}>
+          <input
+            className="searchBox"
+            type="text"
+            value={query}
+            placeholder="Search"
+            onChange={(evt) => searchText(evt.target.value)}
+          />
+        </form>
+      </div>
       <div className="filters">
-      <span className="text"> Search </span>
+        <span className="text"> Search </span>
         <Box sx={{ display: "inline" }}>
           <FormControl>
             <InputLabel id="content">Content</InputLabel>
@@ -59,7 +76,7 @@ const SearchFilters = () => {
             </Select>
           </FormControl>
         </Box>
-        <span className="text"> by  </span>
+        <span className="text"> by </span>
         <Box sx={{ display: "inline" }}>
           <FormControl>
             <InputLabel id="popularity">Popularity</InputLabel>
@@ -79,38 +96,62 @@ const SearchFilters = () => {
             </Select>
           </FormControl>
         </Box>
-        <span
-          className="text"> for
-        </span>
+        <span className="text"> for</span>
         <Box sx={{ display: "inline" }}>
-        
-        <FormControl>
-          <InputLabel id="duration">Duration</InputLabel>
-          <Select
-            //   labelId="content"
-            id="duration"
-            value={duration}
-            label={duration}
-            onChange={(evt) => selectDuration(evt.target.value)}
-          >
-            <MenuItem value={-1}>All time</MenuItem>
-            <MenuItem value={Math.floor(Date.now() / 1000 - 24 * 60 * 60)}>
-              Last 24h
-            </MenuItem>
-            <MenuItem value={Math.floor(Date.now() / 1000 - 7 * 24 * 60 * 60)}>
-              Past Week
-            </MenuItem>
-            <MenuItem value={Math.floor(Date.now() / 1000 - 30 * 24 * 60 * 60)}>
-              Past Month
-            </MenuItem>
-            <MenuItem value={Math.floor(Date.now() / 1000 - 365 * 24 * 60 * 60)}>
-              Past Year
-            </MenuItem>
-            {/* <MenuItem value={"comment"}>Custom Range</MenuItem> */}
-          </Select>
-        </FormControl>
+          <FormControl>
+            <InputLabel id="duration">Duration</InputLabel>
+            <Select
+              //   labelId="content"
+              id="duration"
+              value={duration}
+              label={duration}
+              onChange={(evt) => selectDuration(evt.target.value)}
+            >
+              <MenuItem value={-1}>All time</MenuItem>
+              <MenuItem value={Math.floor(Date.now() / 1000 - 24 * 60 * 60)}>
+                Last 24h
+              </MenuItem>
+              <MenuItem
+                value={Math.floor(Date.now() / 1000 - 7 * 24 * 60 * 60)}
+              >
+                Past Week
+              </MenuItem>
+              <MenuItem
+                value={Math.floor(Date.now() / 1000 - 30 * 24 * 60 * 60)}
+              >
+                Past Month
+              </MenuItem>
+              <MenuItem
+                value={Math.floor(Date.now() / 1000 - 365 * 24 * 60 * 60)}
+              >
+                Past Year
+              </MenuItem>
+              <MenuItem value={"Custom"}>
+                Custom Range
+                <LocalizationProvider
+                  dateAdapter={AdapterDayjs}
+                  localeText={{ start: "From", end: "To" }}
+                >
+                  <DateRangePicker
+                    value={value}
+                    onChange={(newValue) => {
+                      setValue(newValue);
+                    }}
+                    
+                    renderInput={(startProps, endProps) => (
+                      <React.Fragment>
+                        <TextField {...startProps} />
+                        <Box sx={{ mx: 2 }}> to </Box>
+                        
+                        <TextField {...endProps} />
+                      </React.Fragment>
+                    )}
+                  />
+                </LocalizationProvider>
+              </MenuItem>
+            </Select>
+          </FormControl>
         </Box>
-
       </div>
       <div className="news-div">
         {storyArray?.map((curPost) => {
@@ -122,9 +163,7 @@ const SearchFilters = () => {
           else if (points == null) val = 0;
           if (title == null) return <></>;
           return (
-            
             <div className="news" key={objectID}>
-              {/* {console.log(showComment)} */}
               {/* {showComment && <div>comment </div>} */}
               <span>
                 <h4 className="title"> {title} </h4>
@@ -147,7 +186,6 @@ const SearchFilters = () => {
           else if (points == null) val = 0;
           if (title == null) return <></>;
           return (
-            
             <div className="news" key={objectID}>
               {/* {showComment && <div>comment </div>} */}
               <span>
@@ -171,7 +209,6 @@ const SearchFilters = () => {
           else if (points == null) val = 0;
           if (title == null) return <></>;
           return (
-            
             <div className="news" key={objectID}>
               {/* {showComment && <div>comment </div>} */}
               <span>
@@ -192,25 +229,26 @@ const SearchFilters = () => {
 };
 
 const Search = () => {
-  const {
-    hits,
-    loading,
-  } = useSearchGlobalContext();
+  const { hits, loading } = useSearchGlobalContext();
 
   if (loading) {
     return (
       <>
-        <SearchFilters/>
+        <SearchFilters />
         <h2>Loading..</h2>
       </>
     );
   }
- 
+
   if (hits.length === 0)
-      return <><SearchFilters/><h2>No Results</h2></>;
+    return (
+      <>
+        <SearchFilters />
+        <h2>No Results</h2>
+      </>
+    );
 
   return <SearchFilters />;
 };
 //SEARCH API SE QUERY SEARCH RESULTS ARE FINE BUT WITH SEARCHBYDATE API QUERY RESULTS ARE MESSED UP
 export default Search;
-
