@@ -12,11 +12,11 @@ class Title extends Component {
       <div style={this.style}>
         <span>
           Hacker News{" "}
-          <a href={"https://hackernewspage.netlify.app/"} target="_blank" rel="noreferrer">
+          <a href={"https://hackernewspage.netlify.app/"} rel="noreferrer">
             New
           </a>{" "}
           |{" "}
-          <a href={"https://hackernewspage.netlify.app/search"} target="_blank" rel="noreferrer">
+          <a href={"https://hackernewspage.netlify.app/search"} rel="noreferrer">
             Search Page
           </a>{" "}
           | comments | ask | show |submit
